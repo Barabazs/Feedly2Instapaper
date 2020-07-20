@@ -1,4 +1,4 @@
 .idea
-OLD
-secrets*
+.vscode
+private_settings.yaml
 venv
