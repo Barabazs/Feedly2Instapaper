@@ -5,11 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='Feedly2Instapaper',
-    version='0.1.1',
+    version='0.1.2',
     packages=setuptools.find_packages(),
     package_data={
         'feedly2instapaper': ['settings.yaml'],
     },
+    install_requires=['setuptools', 'instapaper', 'feedly-client', 'PyYAML'],
     url='https://github.com/Barabazs/Feedly2Instapaper',
     license='GNU GPLv3',
     author='Barabazs',
