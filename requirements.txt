@@ -1,0 +1,4 @@
+setuptools~=49.2.0
+instapaper~=0.4
+PyYAML~=5.3.1
+feedly-client~=0.22
