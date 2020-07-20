@@ -20,7 +20,7 @@ def add_to_instapaper(instapaper_session_, entry_list):
     """
     failed_entries = []
     for entry in entry_list:
-        entry_url = (entry.json['originId'])
+        entry_url = (entry.json['alternate'][0]['href'])
         bookmark = instapaper.Bookmark(instapaper_session_, {"url": entry_url})
         response = bookmark.save()
         if response.decode("utf-8").find("bookmark_id") < 0:
