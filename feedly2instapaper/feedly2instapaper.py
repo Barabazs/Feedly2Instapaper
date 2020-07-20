@@ -1,11 +1,13 @@
 import sys
+from pathlib import Path
 
 import instapaper
 import yaml
 from feedly.api_client.session import FeedlySession
 from feedly.api_client.stream import StreamOptions
 
-with open('settings.yaml') as f:
+path = Path(__file__).parent / './settings.yaml'
+with path.open() as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 
