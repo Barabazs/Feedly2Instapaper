@@ -12,6 +12,12 @@ with open('example_settings.yaml') as f:
 
 
 def add_to_instapaper(instapaper_session_, entry_list):
+    """
+    Adds all entries in entry_list as a bookmark in Instapaper.
+    :param instapaper_session_: properly authenticated in Instapaper session
+    :param entry_list: list of Feedly entries
+    :return: True if successful or a list of failed entries
+    """
     failed_entries = []
     for entry in entry_list:
         entry_url = (entry.json['originId'])
@@ -25,6 +31,12 @@ def add_to_instapaper(instapaper_session_, entry_list):
 
 
 def mark_as_read(feedly_session_, entry_list):
+    """
+    Marks all entries in entry_list as read in Feedly.
+    :param feedly_session_: properly authenticated Feedly session.
+    :param entry_list: list of Feedly entries
+    :return: True if successful or a response containing more information
+    """
     response = feedly_session_.do_api_request(relative_url='/v3/markers/',
                                               method='post',
                                               data={'action': 'markAsRead',
@@ -39,6 +51,12 @@ def mark_as_read(feedly_session_, entry_list):
 
 
 def mark_as_unsaved(feedly_session_, entry_list):
+    """
+    Marks all entries in entry_list as unsaved in Feedly.
+    :param feedly_session_: properly authenticated Feedly session.
+    :param entry_list: list of Feedly entries
+    :return: True if successful or a response containing more information
+    """
     response = feedly_session_.do_api_request(relative_url='/v3/markers/',
                                               method='post',
                                               data={'action': 'markAsUnsaved',
