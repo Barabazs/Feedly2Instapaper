@@ -1,4 +1,7 @@
 .idea
 .vscode
-private_settings.yaml
 venv
+build
+dist
+secrets
+temp
