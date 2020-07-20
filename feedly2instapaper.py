@@ -7,7 +7,7 @@ from feedly.api_client.stream import StreamOptions
 
 feedly = __import__('feedly')
 
-with open('example_settings.yaml') as f:
+with open('settings.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 
