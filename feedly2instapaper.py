@@ -70,6 +70,21 @@ def mark_as_unsaved(feedly_session_, entry_list):
     return response
 
 
+def establish_instapaper_session():
+    """
+    Establishes an authenticated session with an Instapaper account.
+    :return: properly authenticated Instapaper session
+    """
+    instapaper_session_ = instapaper.Instapaper(
+        config['production']['instapaper']['token'],
+        config['production']['instapaper']['token_secret'])
+    instapaper_session_.login(
+        config['production']['instapaper']['username'],
+        config['production']['instapaper']['password'])
+
+    return instapaper_session_
+
+
 with FeedlySession(
         auth=config['production']['feedly']['access_token'],
         user_id=config['production']['feedly']['client_id'],
@@ -84,12 +99,7 @@ with FeedlySession(
             options=StreamOptions(max_count=sys.maxsize))
         entries = list(entries)
         if len(entries) > 0:
-            instapaper_session = instapaper.Instapaper(
-                config['production']['instapaper']['token'],
-                config['production']['instapaper']['token_secret'])
-            instapaper_session.login(
-                config['production']['instapaper']['username'],
-                config['production']['instapaper']['password'])
+            instapaper_session = establish_instapaper_session()
             instapaper_response = add_to_instapaper(instapaper_session, entries)
             if instapaper_response:
                 mark_as_read(feedly_session, entries)
