@@ -6,9 +6,9 @@ This script is meant to be used with a cron-job to automate the synchronisation.
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install feedly2instapaper.
-
+I suggest installing it in an easily accessible location to be able to edit the settings file and point your cron-job to the script.
 ```bash
-pip install feedly2instapaper
+pip3 install feedly2instapaper --target ./your-dir
 ```
 
 ## Usage
