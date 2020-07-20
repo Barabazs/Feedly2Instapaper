@@ -25,13 +25,12 @@ pip3 install feedly2instapaper --target ./your-dir
 2. Fill in those credentials in `settings.yaml`
 3. Perform a manual test by executing feedly2instapaper.py`
 4. Create a new cron-job that executes `feedly2instapaper.py`
-5. Sit back, relax and share a [coffee](https://ko-fi.com/barabas) with me.
+5. Sit back, relax and share a [coffee](https://ko-fi.com/barabazs) with me.
 
 
 ## Contributing
 You can contribute by code (open a PR) or by generous coffee donations.
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T51XKUJ)
-
 ## License
 [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
