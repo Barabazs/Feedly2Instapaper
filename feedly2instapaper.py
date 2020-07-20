@@ -5,8 +5,6 @@ import yaml
 from feedly.api_client.session import FeedlySession
 from feedly.api_client.stream import StreamOptions
 
-feedly = __import__('feedly')
-
 with open('settings.yaml') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
