@@ -1,5 +1,5 @@
 # Feedly2Instapaper
-Feedly2Instapaper is a simple Python script that:connects to your Feedly and Instapaper accounts to add your "Saved for later"-entries as a new bookmark in Instapaper. If the bookmark was created , the corresponding entry in Feedly is removed.
+Feedly2Instapaper is a simple Python script that connects to your Feedly and Instapaper accounts to add your "Saved for later"-entries as a new bookmark in Instapaper. If the bookmark was created , the corresponding entry in Feedly is removed.
 
 This script is meant to be used with a cron-job to automate the synchronisation.
 
