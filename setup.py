@@ -11,9 +11,7 @@ with open("README.md", "r") as fh:
 setup(
     name="Feedly2Instapaper",
     version="0.1.4",
-    package_data={
-        "feedly2instapaper": ["settings.yaml"],
-    },
+    data_files=[".env-example"],
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/Barabazs/Feedly2Instapaper",
     license="MIT",

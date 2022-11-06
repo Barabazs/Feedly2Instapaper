@@ -6,7 +6,7 @@ from dotenv import dotenv_values
 from feedly.api_client.session import FeedlySession
 from feedly.api_client.stream import StreamOptions
 
-config = dotenv_values('.env')
+config = dotenv_values(".env")
 
 
 def add_to_instapaper(instapaper_session_, entry_list):
@@ -18,7 +18,7 @@ def add_to_instapaper(instapaper_session_, entry_list):
     """
     failed_entries = []
     for entry in entry_list:
-        entry_url = (entry.json['alternate'][0]['href'])
+        entry_url = entry.json["alternate"][0]["href"]
         bookmark = instapaper.Bookmark(instapaper_session_, {"url": entry_url})
         response = bookmark.save()
         if response.decode("utf-8").find("bookmark_id") < 0:
@@ -35,14 +35,15 @@ def mark_as_read(feedly_session_, entry_list):
     :param entry_list: list of Feedly entries
     :return: True if successful or a response containing more information
     """
-    response = feedly_session_.do_api_request(relative_url='/v3/markers/',
-                                              method='post',
-                                              data={'action': 'markAsRead',
-                                                    'type': 'entries',
-                                                    'entryIds': [
-                                                        entry_id.json['id'] for
-                                                        entry_id in
-                                                        entry_list]})
+    response = feedly_session_.do_api_request(
+        relative_url="/v3/markers/",
+        method="post",
+        data={
+            "action": "markAsRead",
+            "type": "entries",
+            "entryIds": [entry_id.json["id"] for entry_id in entry_list],
+        },
+    )
     if response is None:
         return True
     return response
@@ -55,47 +56,49 @@ def mark_as_unsaved(feedly_session_, entry_list):
     :param entry_list: list of Feedly entries
     :return: True if successful or a response containing more information
     """
-    response = feedly_session_.do_api_request(relative_url='/v3/markers/',
-                                              method='post',
-                                              data={'action': 'markAsUnsaved',
-                                                    'type': 'entries',
-                                                    'entryIds': [
-                                                        entry_id.json['id'] for
-                                                        entry_id in
-                                                        entry_list]})
+    response = feedly_session_.do_api_request(
+        relative_url="/v3/markers/",
+        method="post",
+        data={
+            "action": "markAsUnsaved",
+            "type": "entries",
+            "entryIds": [entry_id.json["id"] for entry_id in entry_list],
+        },
+    )
     if response is None:
         return True
     return response
 
 
-def establish_instapaper_session():
+def establish_instapaper_session() -> instapaper.Instapaper:
     """
     Establishes an authenticated session with an Instapaper account.
     :return: properly authenticated Instapaper session
     """
     instapaper_session_ = instapaper.Instapaper(
-        config.get('instapaper-token'), config.get('instapaper-token_secret')
+        config.get("instapaper-token"), config.get("instapaper-token_secret")
     )
     instapaper_session_.login(
-        config.get('instapaper-token'), config.get('instapaper-username')
+        config.get("instapaper-username"), config.get("instapaper-password")
     )
 
     return instapaper_session_
 
 
 with FeedlySession(
-    auth=config.get('feedly-access_token'),
-    user_id=config.get('feedly-client_id'),
-    api_host=config.get('feedly-url'),
+    auth=config.get("feedly-access_token"),
+    user_id=config.get("feedly-client_id"),
+    api_host=config.get("feedly-url"),
 ) as feedly_session:
     feeds = feedly_session.user.get_tags()
     keep = []
     for feed in feeds:
-        if feeds[feed].json['id'].find('global.saved') >= 0:
+        if feeds[feed].json["id"].find("global.saved") >= 0:
             keep = feeds[feed]
         category_id = keep.stream_id.content_id
         entries = feedly_session.user.get_tag(category_id).stream_contents(
-            options=StreamOptions(max_count=sys.maxsize))
+            options=StreamOptions(max_count=sys.maxsize)
+        )
         entries = list(entries)
         if len(entries) > 0:
             instapaper_session = establish_instapaper_session()
