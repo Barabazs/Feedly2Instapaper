@@ -2,13 +2,11 @@ import sys
 from pathlib import Path
 
 import instapaper
-import yaml
+from dotenv import dotenv_values
 from feedly.api_client.session import FeedlySession
 from feedly.api_client.stream import StreamOptions
 
-path = Path(__file__).parent / './settings.yaml'
-with path.open() as f:
-    config = yaml.load(f, Loader=yaml.FullLoader)
+config = dotenv_values('.env')
 
 
 def add_to_instapaper(instapaper_session_, entry_list):
@@ -76,19 +74,20 @@ def establish_instapaper_session():
     :return: properly authenticated Instapaper session
     """
     instapaper_session_ = instapaper.Instapaper(
-        config['production']['instapaper']['token'],
-        config['production']['instapaper']['token_secret'])
+        config.get('instapaper-token'), config.get('instapaper-token_secret')
+    )
     instapaper_session_.login(
-        config['production']['instapaper']['username'],
-        config['production']['instapaper']['password'])
+        config.get('instapaper-token'), config.get('instapaper-username')
+    )
 
     return instapaper_session_
 
 
 with FeedlySession(
-        auth=config['production']['feedly']['access_token'],
-        user_id=config['production']['feedly']['client_id'],
-        api_host=config['production']['feedly']['url']) as feedly_session:
+    auth=config.get('feedly-access_token'),
+    user_id=config.get('feedly-client_id'),
+    api_host=config.get('feedly-url'),
+) as feedly_session:
     feeds = feedly_session.user.get_tags()
     keep = []
     for feed in feeds:

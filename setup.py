@@ -30,8 +30,8 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         "instapaper==0.4",
-        "PyYAML~=6.0",
         "feedly-client==0.25",
+        "python-dotenv==0.21.0",
     ],
     extras_require=extras_require,
 )
