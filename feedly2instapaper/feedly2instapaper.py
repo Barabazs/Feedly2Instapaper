@@ -85,24 +85,27 @@ def establish_instapaper_session() -> instapaper.Instapaper:
     return instapaper_session_
 
 
-with FeedlySession(
-    auth=config.get("feedly-access_token"),
-    user_id=config.get("feedly-client_id"),
-    api_host=config.get("feedly-url"),
-) as feedly_session:
-    feedly_session.user.get_tag("global.saved")
-    entries = feedly_session.user.get_tag("global.saved").stream_contents(
-        options=StreamOptions(max_count=sys.maxsize)
-    )
-    entries = list(entries)
-    if len(entries) > 0:
-        instapaper_session = establish_instapaper_session()
-        instapaper_response = add_to_instapaper(instapaper_session, entries)
-        if instapaper_response:
-            mark_as_read(feedly_session, entries)
-            mark_as_unsaved(feedly_session, entries)
-        else:
-            for _entry in instapaper_response:
-                entries.remove(_entry)
-            mark_as_read(feedly_session, entries)
-            mark_as_unsaved(feedly_session, entries)
+
+
+def main():
+    with FeedlySession(
+        auth=config.get("feedly-access_token"),
+        user_id=config.get("feedly-client_id"),
+        api_host=config.get("feedly-url"),
+    ) as feedly_session:
+        feedly_session.user.get_tag("global.saved")
+        entries = feedly_session.user.get_tag("global.saved").stream_contents(
+            options=StreamOptions(max_count=sys.maxsize)
+        )
+        entries = list(entries)
+        if len(entries) > 0:
+            instapaper_session = establish_instapaper_session()
+            instapaper_response = add_to_instapaper(instapaper_session, entries)
+            if instapaper_response:
+                mark_as_read(feedly_session, entries)
+                mark_as_unsaved(feedly_session, entries)
+            else:
+                for _entry in instapaper_response:
+                    entries.remove(_entry)
+                mark_as_read(feedly_session, entries)
+                mark_as_unsaved(feedly_session, entries)

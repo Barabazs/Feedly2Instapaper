@@ -10,7 +10,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="Feedly2Instapaper",
-    version="0.1.4",
+    version="0.1.5",
     data_files=[".env-example"],
     packages=find_packages(exclude=["tests", "tests.*"]),
     url="https://github.com/Barabazs/Feedly2Instapaper",
