@@ -30,6 +30,7 @@ setup(
         "instapaper==0.4",
         "feedly-client==0.25",
         "python-dotenv==0.21.0",
+        "archivooor==0.0.2",
     ],
     extras_require=extras_require,
 )
